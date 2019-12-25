@@ -2,7 +2,7 @@ pipeline {
     agent none
 
     parameters {
-        string(name:'git_tag', defaultValue:'', description:'docker image tag')
+        string(name:'git_tag', defaultValue:'', description:'git tag')
     }
 
     environment {

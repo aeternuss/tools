@@ -29,7 +29,7 @@ pipeline {
 
             when {
                 beforeAgent true
-                expression { params.git_tag ==~ /^v[0-9.]+.*/ }
+                expression { params.git_tag ==~ /^v[0-9.]+/ }
             }
 
             steps {

@@ -9,6 +9,7 @@ pipeline {
         git_user = 'aeternus'
         git_email = 'aeternus@aliyun.com'
         image_name = 'tools'
+        stage_tag_image = 'aeternuss/tools:1.0.1-alpine'
     }
 
     stages {
@@ -21,7 +22,7 @@ pipeline {
         }
 
         stage('Tag') {
-            agent { docker { image 'aeternuss/tools:1.0.0-alpine' } }
+            agent { docker { image '${stage_tag_image}' } }
 
             environment {
                 GITHUB_AUTH = credentials('GitHub-PAT')
@@ -29,7 +30,10 @@ pipeline {
 
             when {
                 beforeAgent true
-                expression { params.git_tag ==~ /^v[0-9.]+/ }
+                anyOf {
+                    expression { params.git_tag ==~ /^v[0-9.]+/ }
+                    expression { params.git_tag ==~ /^v[0-9.]+-alpine/ }
+                }
             }
 
             steps {

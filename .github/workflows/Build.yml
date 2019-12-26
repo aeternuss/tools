@@ -1,0 +1,24 @@
+## Github Action: Build
+##
+## Description:
+##     Test build Docker image as run `docker build . --file Dockerfile --tag <image_name>:<tag>`
+
+name: Docker Image CI
+
+on: [ push ]
+
+jobs:
+
+  build:
+    run-on: ubuntu-latest
+
+    steps:
+      - name: actions/checkout@v1
+        with:
+          fetch-depth: 1
+
+      - name: Build the Docker image
+        run: |
+          docker build . --file Dockerfile --tag ${image_name}:$(date %s)
+        env:
+          image_name: ${{ github.repository }}

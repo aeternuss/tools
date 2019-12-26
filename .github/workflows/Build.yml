@@ -19,6 +19,6 @@ jobs:
 
       - name: Build the Docker image
         run: |
-          docker build . --file Dockerfile --tag ${image_name}:$(date %s)
+          docker build . --file Dockerfile --tag ${image_name}:$(date +%s)
         env:
           image_name: ${{ github.repository }}
